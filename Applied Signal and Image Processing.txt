@@ -1,0 +1,88 @@
+1. Check CouchDB Server Status:
+>curl http://admin:root@localhost:5984/
+{"couchdb":"Welcome","version":"3.3.2","git_sha":"11a234070","uuid":"52a206d18afee5c0a8c72b2dbe
+baff75","features":["access-ready","partitioned","pluggable-storageengines","reshard","scheduler"],"vendor":{"name":"The Apache Software Foundation"}}
+
+2. Create Employee Document:
+>curl -X PUT http://admin:root@localhost:5984/employee/001 -H "Content-Type: application/json"
+-d "{"empid":"101","empname":"Calvin","salary":"3000"}"
+{"ok":true,"id":"001","rev":"1-099964a79e3feca99feb1e3f1de2bff9"}
+
+>curl -X PUT http://admin:root@localhost:5984/employee/002 -H "Content-Type: application/json"
+-d "{"empid":"102","empname":"Durvesh","salary":"2000"}"
+{"ok":true,"id":"002","rev":"1-7e9054fe1e2d9bdb90704d9c3587e962"}
+
+>curl -X PUT http://admin:root@localhost:5984/employee/003 -H "Content-Type: application/json"
+-d "{"empid":"103","empname":"Ganesh","salary":"7000"}"
+{"ok":true,"id":"003","rev":"1-90861440dd0ae471a16a0eb0bf71c53a"}
+
+>curl -X PUT http://admin:root@localhost:5984/employee/004 -H "Content-Type: application/json"
+-d "{"empid":"104","empname":"Hanif","salary":"1000"}"
+{"ok":true,"id":"004","rev":"1-73655c91814039cac3597a7bc64edba2"}
+
+>curl -X PUT http://admin:root@localhost:5984/employee/005 -H "Content-Type: application/json"
+-d "{"empid":"105","empname":"Albin","salary":"10000"}"
+{"ok":true,"id":"005","rev":"1-261fe29149ce994a6d945f2b1cbdade5"}
+
+>curl -X PUT http://admin:root@localhost:5984/employee/006 -H "Content-Type: application/json"
+-d "{"empid":"106","empname":"Bhushan","salary":"7000"}"
+{"ok":true,"id":"006","rev":"1-a6590385e16c4a00568f74584c4b6aa9"}
+
+3. List All Databases:
+>curl -X GET http://admin:root@localhost:5984/_all_dbs
+["employee","student","testdb"]
+
+4. Retrieve Employee Document by ID:
+>curl -X GET http://admin:root@localhost:5984/employee/001
+{"_id":"001","_rev":"1-
+099964a79e3feca99feb1e3f1de2bff9","empid":"101","empname":"Calvin","salary":"3000"}
+
+>curl -X GET http://admin:root@localhost:5984/employee/006
+{"_id":"006","_rev":"1-
+a6590385e16c4a00568f74584c4b6aa9","empid":"106","empname":"Bhushan","salary":"7000"}
+
+5. List All Documents in the "emp" Database:
+>curl -X GET http://admin:root@localhost:5984/employee/_all_docs
+{"total_rows":6,"offset":0,"rows":[
+{"id":"001","key":"001","value":{"rev":"1-099964a79e3feca99feb1e3f1de2bff9"}},
+{"id":"002","key":"002","value":{"rev":"1-7e9054fe1e2d9bdb90704d9c3587e962"}},
+{"id":"003","key":"003","value":{"rev":"1-90861440dd0ae471a16a0eb0bf71c53a"}},
+{"id":"004","key":"004","value":{"rev":"1-73655c91814039cac3597a7bc64edba2"}},
+{"id":"005","key":"005","value":{"rev":"1-261fe29149ce994a6d945f2b1cbdade5"}},
+{"id":"006","key":"006","value":{"rev":"1-a6590385e16c4a00568f74584c4b6aa9"}}
+]}
+
+6. Delete Employee Document with Revision:
+>curl -X DELETE http://admin:root@localhost:5984/employee/004?rev=1-
+73655c91814039cac3597a7bc64edba2
+{"ok":true,"id":"004","rev":"2-b0b531db5b24345655c187462e1ea7a5"}
+
+>curl -X GET http://admin:root@localhost:5984/employee/_all_docs
+{"total_rows":5,"offset":0,"rows":[
+{"id":"001","key":"001","value":{"rev":"1-099964a79e3feca99feb1e3f1de2bff9"}},
+{"id":"002","key":"002","value":{"rev":"1-7e9054fe1e2d9bdb90704d9c3587e962"}},
+{"id":"003","key":"003","value":{"rev":"1-90861440dd0ae471a16a0eb0bf71c53a"}},
+{"id":"005","key":"005","value":{"rev":"1-261fe29149ce994a6d945f2b1cbdade5"}},
+{"id":"006","key":"006","value":{"rev":"1-a6590385e16c4a00568f74584c4b6aa9"}}
+]}
+
+7. Update Employee Document with Revision:
+>curl -X PUT http://admin:root@localhost:5984/employee/001 -H "Content-Type: application/json"
+-d "{"empid":"101","empname":"Calvin","salary":"5000","yop":"5","_rev":"1-
+099964a79e3feca99feb1e3f1de2bff9"}"
+{"ok":true,"id":"001","rev":"2-48f49990abb89176a3f40b0a1aabcf80"}
+
+>curl -X PUT http://admin:root@localhost:5984/employee/002 -H "Content-Type: application/json"
+-d "{"empid":"102","empname":"Durvesh","salary":"2000","yop":"5","_rev":"1-
+7e9054fe1e2d9bdb90704d9c3587e962"}"
+{"ok":true,"id":"002","rev":"2-45c3da844221f4f6056c5a474ffa96ad"}
+
+>curl -X PUT http://admin:root@localhost:5984/employee/003 -H "Content-Type: application/json"
+-d "{"empid":"103","empname":"Ganesh","salary":"7000","yop":"2","_rev":"1-
+90861440dd0ae471a16a0eb0bf71c53a"}"
+{"ok":true,"id":"003","rev":"2-009fe8daf06a268be48913662b50aa83"}
+
+>curl -X PUT http://admin:root@localhost:5984/employee/006 -H "Content-Type: application/json"
+-d "{"empid":"106","empname":"Bhushan","salary":"7000","yop":"6","_rev":"2-
+0ae8afc910dcdab83da578de02cf97a2"}"
+{"ok":true,"id":"006","rev":"3-518a24481156bd92917f37abda5f854b"}

@@ -1,0 +1,17 @@
+clc;
+a = imread("C:\Program Files\scilab-6.1.1\POPE\cameraman.png");
+f1 = a+50;
+f2 = a+60;
+f3 = a+80;
+subplot(2,2,1);
+imshow(a);
+title("original Image, Calvin Koshy 005");
+subplot(2,2,2);
+imshow(f1);
+title("Brightness Increased by 50, Calvin Koshy 005");
+subplot(2,2,3);
+imshow(f2);
+title("Brightness Increased by 60, Calvin Koshy 005");
+subplot(2,2,4);
+imshow(f3);
+title("Brightness Increased by 80, Calvin Koshy 005");

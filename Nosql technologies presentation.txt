@@ -1,0 +1,21 @@
+Nosql technologies presentation:
+
+person 1
+Introduction:
+1. Features of CouchDB(HTTP API)
+2. CouchDB Fauxton
+4. CouchDB Curl
+
+person 2:
+Download and Install and Set up of Couch DB:
+
+person 3
+CouchDB document & database:
+1. Create 
+2. Update
+3. Delete
+4. Create View
+
+person 4
+
+HTTP URL Paths and Commands Using CURL to Interact with CouchDB for CRUD Operations.
